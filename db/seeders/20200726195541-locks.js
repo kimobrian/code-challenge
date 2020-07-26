@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert("Locks", [{
       id: 1,
       name: "L1",
-      user: 1,
+      userId: 1,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }], {});

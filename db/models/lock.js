@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 module.exports = (sequelize, DataTypes) => {
   class Lock extends Model {
     static associate(models) {
-      this.belongsTo(models.User, { foreignKey: "user" });
+      this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
     }
   }
   Lock.init({

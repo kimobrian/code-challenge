@@ -1,6 +1,5 @@
 const express = require("express");
 const createError = require("http-errors");
-
 const router = express.Router();
 const { User } = require("../db/models");
 const { encryptPassword, verifyPassword, generateJWT } = require("../auth");
