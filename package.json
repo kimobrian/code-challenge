@@ -7,19 +7,25 @@
   "scripts": {
     "start": "node ./bin/www",
     "start:dev": "DEBUG=code-challenge:* npx nodemon ./bin/www",
-    "test": "jest --config ./jest.config.json --coverage"
+    "test": "jest --config ./jest.config.json --coverage",
+    "lint": "eslint --fix --ext .js .",
+    "migrate": "npx sequelize db:migrate"
   },
   "dependencies": {
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "sequelize": "^6.3.3",
+    "sqlite": "^4.0.12",
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^4.0.2"
   }
 }
