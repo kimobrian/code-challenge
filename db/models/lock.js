@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = (sequelize, DataTypes) => {
   class Lock extends Model {
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   Lock.init({
     macId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: uuidv4(),
       allowNull: false
     },
     name: {
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: "Lock",
+    modelName: "Lock"
   });
   return Lock;
 };

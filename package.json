@@ -9,7 +9,9 @@
     "start:dev": "DEBUG=code-challenge:* npx nodemon ./bin/www",
     "test": "jest --config ./jest.config.json --coverage",
     "lint": "eslint --fix --ext .js .",
-    "migrate": "npx sequelize db:migrate"
+    "migrate": "npx sequelize db:migrate",
+    "clean:migrate": "npx sequelize db:migrate:undo:all && yarn migrate",
+    "seed": "npx sequelize db:seed:all"
   },
   "dependencies": {
     "debug": "~2.6.9",
@@ -18,7 +20,8 @@
     "morgan": "~1.9.1",
     "sequelize": "^6.3.3",
     "sqlite": "^4.0.12",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.0",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
