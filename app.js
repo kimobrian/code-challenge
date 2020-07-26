@@ -1,12 +1,15 @@
 const createError = require("http-errors");
 const express = require("express");
 const logger = require("morgan");
+const authRouter = require("./routes/auth");
 
 const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(authRouter);
 
 app.get("/", (req, res)=> {
   res.json({ "message": "Welcome to User Locks!!" });
@@ -19,11 +22,8 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
   res.status(err.status || 500);
-  res.render("error");
+  res.json({ error: err.message });
 });
 
 module.exports = app;
