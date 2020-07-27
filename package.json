@@ -11,7 +11,8 @@
     "lint": "eslint --fix --ext .js .",
     "migrate": "npx sequelize db:migrate",
     "clean:migrate": "npx sequelize db:migrate:undo:all && yarn migrate",
-    "seed": "npx sequelize db:seed:all"
+    "seed": "npx sequelize db:seed:all",
+    "build": "yarn run migrate && yarn run seed"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -21,17 +22,16 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
+    "mysql2": "^2.1.0",
     "sequelize": "^6.3.3",
-    "sqlite": "^4.0.12",
-    "sqlite3": "^5.0.0",
-    "uuid": "^8.2.0"
+    "uuid": "^8.2.0",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
-    "sequelize-cli": "^6.2.0",
     "supertest": "^4.0.2"
   }
 }

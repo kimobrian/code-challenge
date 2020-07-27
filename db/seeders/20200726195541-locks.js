@@ -6,8 +6,8 @@ module.exports = {
       id: 1,
       name: "L1",
       userId: 1,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
+      updatedAt: new Date().toISOString().slice(0, 19).replace("T", " ")
     }], {});
     
   },
