@@ -4,7 +4,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasMany(models.Lock, { as: "locks" });
+      this.hasMany(models.Lock, { as: "locks", onDelete: "cascade" });
     }
   }
   User.init({

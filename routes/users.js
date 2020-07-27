@@ -1,7 +1,6 @@
 const express = require("express");
 const createError = require("http-errors");
 const router = express.Router();
-const Op = require("Sequelize");
 const { User, Lock } = require("../db/models");
 const { verifyJWT } = require("../auth");
 
@@ -31,8 +30,20 @@ router.get("/:param", async (req, res, next)=> {
     if(!user) return next(createError(404, "User with id/username not found"));
     return res.json(user);
   } catch (error) {
-    console.log("error", error);
     return next(createError("Error occurred retrieving user"));
+  }
+});
+
+// Delete your own account
+router.delete("/", async (req, res, next)=> {
+  try {
+    const { authorization } = req.headers;
+    const { id } = verifyJWT(authorization);
+    const deleted = await User.destroy({ where: { id } });
+    return res.json({ message: "Account deleted successfully" });
+  } catch (error) {
+    console.log("error", error);
+    return next(createError("Error occurred deleting user"));
   }
 });
 
