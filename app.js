@@ -26,7 +26,7 @@ app.get("/", (req, res)=> {
 });
 
 app.use("/", authRouter);
-app.use("/user", verifyUser, userRouter);
+app.use(["/user", "/users"], verifyUser, userRouter);
 app.use("/locks", verifyUser, userRouter);
 
 // catch 404 and forward to error handler

@@ -42,8 +42,21 @@ router.delete("/", async (req, res, next)=> {
     const deleted = await User.destroy({ where: { id } });
     return res.json({ message: "Account deleted successfully" });
   } catch (error) {
-    console.log("error", error);
     return next(createError("Error occurred deleting user"));
+  }
+});
+
+// Get all users
+router.get("/", async(req, res, next)=> {
+  try {
+    if(req.originalUrl === "/users") {
+      const users = await User.findAll({ attributes: ["id", "name", "username", "birthDate"] });
+      console.log("users", users);
+      return res.json({ users });
+    }
+    throw new Error("Error getting users");
+  } catch (error) {
+    return next(createError("Error getting users"));
   }
 });
 
