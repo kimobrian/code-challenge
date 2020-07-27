@@ -35,7 +35,7 @@ router.get("/:param", async (req, res, next)=> {
 });
 
 // Delete your own account
-router.delete("/", async (req, res, next)=> {
+router.delete("/me", async (req, res, next)=> {
   try {
     const { authorization } = req.headers;
     const { id } = verifyJWT(authorization);
@@ -49,12 +49,8 @@ router.delete("/", async (req, res, next)=> {
 // Get all users
 router.get("/", async(req, res, next)=> {
   try {
-    if(req.originalUrl === "/users") {
-      const users = await User.findAll({ attributes: ["id", "name", "username", "birthDate"] });
-      console.log("users", users);
-      return res.json({ users });
-    }
-    throw new Error("Error getting users");
+    const users = await User.findAll({ attributes: ["id", "name", "username", "birthDate"] });
+    return res.json({ users });
   } catch (error) {
     return next(createError("Error getting users"));
   }
@@ -62,13 +58,13 @@ router.get("/", async(req, res, next)=> {
 
 
 // Update user
-router.put("/", async (req, res, next) => {
+router.put("/me", async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     const { id } = verifyJWT(authorization);
     const { name, birthDate } = req.body;
     const updatedRows = await User.update({ name, birthDate }, { where: { id }, returning: true });
-    const uodatedRecord = await User.findByPk(id);
+    const uodatedRecord = await User.findByPk(id, { attributes: ["id", "name", "username", "birthDate"] });
     return res.json({ updated: uodatedRecord });
   } catch (error) {
     return next(createError("Error updating user"));

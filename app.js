@@ -3,6 +3,7 @@ const express = require("express");
 const logger = require("morgan");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/users");
+const locksRouter = require("./routes/locks");
 const { verifyJWT } = require("./auth");
 
 function verifyUser(req, res, next) {
@@ -26,8 +27,8 @@ app.get("/", (req, res)=> {
 });
 
 app.use("/", authRouter);
-app.use(["/user", "/users"], verifyUser, userRouter);
-app.use("/locks", verifyUser, userRouter);
+app.use("/users", verifyUser, userRouter);
+app.use("/locks", verifyUser, locksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
