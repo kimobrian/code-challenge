@@ -60,4 +60,19 @@ router.get("/", async(req, res, next)=> {
   }
 });
 
+
+// Update user
+router.put("/", async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    const { id } = verifyJWT(authorization);
+    const { name, birthDate } = req.body;
+    const updatedRows = await User.update({ name, birthDate }, { where: { id }, returning: true });
+    const uodatedRecord = await User.findByPk(id);
+    return res.json({ updated: uodatedRecord });
+  } catch (error) {
+    return next(createError("Error updating user"));
+  }
+});
+
 module.exports = router;
