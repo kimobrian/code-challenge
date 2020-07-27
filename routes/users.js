@@ -1,6 +1,7 @@
 const express = require("express");
 const createError = require("http-errors");
 const router = express.Router();
+const Op = require("Sequelize");
 const { User, Lock } = require("../db/models");
 const { verifyJWT } = require("../auth");
 
@@ -16,6 +17,22 @@ router.get("/me", async (req, res, next) => {
     return res.json(user);
   } catch (error) {
     next(createError(error));
+  }
+});
+
+// Get user by id or username
+router.get("/:param", async (req, res, next)=> {
+  try {
+    const param = req.params.param; // Param can be id or username
+    let where;
+    if(isNaN(param)) where = { username: param };
+    else where = { id: param };
+    const user = await User.findOne({ where, attributes: ["id", "name", "username", "birthDate"] });
+    if(!user) return next(createError(404, "User with id/username not found"));
+    return res.json(user);
+  } catch (error) {
+    console.log("error", error);
+    return next(createError("Error occurred retrieving user"));
   }
 });
 
